@@ -18,16 +18,16 @@ func NewStore(path string) *Store {
 func (s *Store) load() ([]Todo,error){
 	f,err := os.Open(s.Path)
 	if errors.Is(err,os.ErrNotExist) {
-		return []Todo,nil
+		return []Todo{} , nil
 	}
 	if err!=nil {
-		return nil,error
+		return nil,err
 	}
 	defer f.Close()
 
 	var out []Todo
 	if err:=json.NewDecoder(f).Decode(&out); err!=nil {
-		retur nil,err
+		return nil,err
 	}
 
 	return out, nil
@@ -39,13 +39,13 @@ func (s *Store) save(todos []Todo) error {
 		return err
 	}
 	defer f.Close()
-	return json.NewDecoder(f).Encode(todos)
+	return json.NewEncoder(f).Encode(todos)
 }
 
-func (s *Store) add(text string) error {
+func (s *Store) Add(text string) error {
 	todos,err:= s.load();
 	if err!=nil {
-		return nil,err
+		return err
 	}
 	next:=1
 	if len(todos)>0 {
@@ -54,7 +54,7 @@ func (s *Store) add(text string) error {
 
 	t:=Todo {
 		ID: next,
-		Text: text
+		Text: text,
 		CreatedAt: time.Now(),
 	}
 

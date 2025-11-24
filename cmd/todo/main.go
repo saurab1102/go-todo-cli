@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"os"
-	"strconv"
+	//"strconv"
 
 	"example.com/todo-cli/internal/todo"
 )
@@ -17,11 +17,11 @@ func main(){
 	cmd:=os.Args[1]
 
 	switch cmd {
-		"add":
+		case "add":
 			text:=os.Args[2]
 			err:=store.Add(text)
 			if(err!=nil){
-				os.exit(1)
+				os.Exit(1)
 			}
 	}
 }
