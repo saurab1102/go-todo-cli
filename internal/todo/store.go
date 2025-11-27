@@ -92,12 +92,12 @@ func (s *Store) Delete(id int) error {
 	out := make([]Todo,0,len(todos))
 	found := false
 
-	for i := range todos {
-		if todos[i].ID==id {
+	for _,t := range todos {
+		if t.ID==id {
 			found=true
 			continue
 		}
-		out = append(out,todos[i])
+		out = append(out,t)
 	}
 
 	if !found {
