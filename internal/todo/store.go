@@ -61,4 +61,8 @@ func (s *Store) Add(text string) error {
 	todos = append(todos,t)
 	return s.save(todos)
 }
+
+func (s *Store) List() ([]Todo,error) {
+	return s.load();
+}
 	

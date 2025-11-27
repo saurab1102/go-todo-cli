@@ -1,7 +1,7 @@
 package main
 
 import (
-	//"fmt"
+	"fmt"
 	"os"
 	//"strconv"
 
@@ -22,6 +22,14 @@ func main(){
 			err:=store.Add(text)
 			if(err!=nil){
 				os.Exit(1)
+			}
+		case "list":
+			todos,err := store.List()
+			if err!=nil {
+				os.Exit(1)
+			}
+			for _,t := range todos {
+				fmt.Printf("%d | %v | %s\n", t.ID, t.Done,t.Text)
 			}
 	}
 }
