@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
-	//"strconv"
+	"strconv"
 
 	"example.com/todo-cli/internal/todo"
 )
@@ -30,6 +30,12 @@ func main(){
 			}
 			for _,t := range todos {
 				fmt.Printf("%d | %v | %s\n", t.ID, t.Done,t.Text)
+			}
+		case "done":
+			id,_:=strconv.Atoi(os.Args[2])
+			err:=store.MarkDone(id)
+			if err!=nil {
+				os.Exit(1)
 			}
 	}
 }

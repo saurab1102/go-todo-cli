@@ -65,4 +65,20 @@ func (s *Store) Add(text string) error {
 func (s *Store) List() ([]Todo,error) {
 	return s.load();
 }
-	
+
+func (s *Store) MarkDone(id int) error {
+	todos, err := s.load()
+	if err!=nil {
+		return err
+	}
+
+	for i:= range todos {
+		if todos[i].ID==id {
+			todos[i].Done = true
+			todos[i].DoneAt = time.Now()
+			return s.save(todos)
+		}
+	}
+
+	return errors.New("Task not found")
+}
