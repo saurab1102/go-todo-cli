@@ -37,5 +37,11 @@ func main(){
 			if err!=nil {
 				os.Exit(1)
 			}
+		case "delete":
+			id, _ := strconv.Atoi(os.Args[2])
+			err:=store.Delete(id)
+			if err!=nil {
+				os.Exit(1)
+			}
 	}
 }

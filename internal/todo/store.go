@@ -82,3 +82,27 @@ func (s *Store) MarkDone(id int) error {
 
 	return errors.New("Task not found")
 }
+
+func (s *Store) Delete(id int) error {
+	todos, err := s.load()
+	if err!=nil {
+		return err
+	}
+
+	out := make([]Todo,0,len(todos))
+	found := false
+
+	for i := range todos {
+		if todos[i].ID==id {
+			found=true
+			continue
+		}
+		out = append(out,todos[i])
+	}
+
+	if !found {
+		return errors.New("Task not found")
+	}
+
+	return s.save(out)
+}
